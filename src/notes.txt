@@ -1,0 +1,17 @@
+Note
+By default, the IPv4 policy in Fedora kernels disables support for IP forwarding. This prevents machines that run Fedora from functioning as dedicated edge routers. To enable IP forwarding, use the following command:
+
+[root@myServer ~ ] # sysctl -w net.ipv4.ip_forward=1
+
+This configuration change is only valid for the current session; it does not persist beyond a reboot or network service restart. To permanently set IP forwarding, edit the /etc/sysctl.conf file as follows:
+Locate the following line:
+
+net.ipv4.ip_forward = 0
+
+Edit it to read as follows:
+
+net.ipv4.ip_forward = 1
+
+Use the following command to enable the change to the sysctl.conf file:
+
+[root@myServer ~ ] # sysctl -p /etc/sysctl.conf
