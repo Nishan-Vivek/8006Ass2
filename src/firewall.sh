@@ -13,9 +13,9 @@ EXTERNAL_IP=""
 BLOCKED_TCP_INBOUND="32768:32775,137:139,111,115" #Explicitly blocked inbound TCP ports
 BLOCKED_UDP_INBOUND="32768:32775,137:139"         #Explicitly blocked inbound UDP ports
 
-ALLOWED_TCP_PORTS=""
-ALLOWED_UDP_PORTS=""
-ALLOWED_ICMP_TYPES=""
+ALLOWED_TCP_PORTS="22,53,67,68,80,443"
+ALLOWED_UDP_PORTS="53,67,80,443"
+ALLOWED_ICMP_TYPES="0,3,8"
 
 
 
@@ -122,11 +122,25 @@ iptables -A UDPin -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -p tcp -m multiport -
 
 
 #Allowed Traffic
+#Allow NEW, ESTABLISHED TCP connections on allowed ports.
+iptables -A TCPin -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -p tcp -m state --state NEW,ESTABLISHED -m multiport --dports $ALLOWED_TCP_PORTS -j ACCEPT
+iptables -A TCPin -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -p tcp -m state --state NEW,ESTABLISHED -m multiport --sports $ALLOWED_TCP_PORTS -j ACCEPT
+iptables -A TCPout -i $LAN_INTERFACE -o $EXTERNAL_INTERFACE -p tcp -m multiport --dports $ALLOWED_TCP_PORTS -j ACCEPT
+iptables -A TCPout -i $LAN_INTERFACE -o $EXTERNAL_INTERFACE -p tcp -m multiport --sports $ALLOWED_TCP_PORTS -j ACCEPT
 
 
-#iptables -A FORWARD -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -m state --state ESTABLISHED,RELATED -j ACCEPT
-#iptables -A FORWARD -i $LAN_INTERFACE -o $EXTERNAL_INTERFACE -j ACCEPT
-#iptables -t nat -A POSTROUTING -o $EXTERNAL_INTERFACE -j MASQUERADE
+#Allow UDP connections on allowed ports.
+iptables -A UDPin -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -p udp -m multiport --dports $ALLOWED_UDP_PORTS -j ACCEPT
+iptables -A UDPin -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -p udp -m multiport --sports $ALLOWED_UDP_PORTS -j ACCEPT
+iptables -A UDPout -i $LAN_INTERFACE -o $EXTERNAL_INTERFACE -p udp -m multiport --dports $ALLOWED_UDP_PORTS -j ACCEPT
+iptables -A UDPout -i $LAN_INTERFACE -o $EXTERNAL_INTERFACE -p udp -m multiport --sports $ALLOWED_UDP_PORTS -j ACCEPT
+
+#Allow ICMP packets of allowed types.
+#iptables -A ICMPin -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -p icmp --icmp-type $ALLOWED_ICMP_TYPES  -j ACCEPT
+#iptables -A ICMPout -i $LAN_INTERFACE -o $EXTERNAL_INTERFACE -p icmp --icmp-type $ALLOWED_ICMP_TYPES -j ACCEPT
+iptables -A ICMPin -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -p icmp   -j ACCEPT
+iptables -A ICMPout -i $LAN_INTERFACE -o $EXTERNAL_INTERFACE -p icmp -j ACCEPT
+
 
 
 #For FTP and SSH services, set control connections to "Minimum Delay" and FTP data to "Maximum Throughput".
@@ -134,6 +148,11 @@ iptables -A PREROUTING -t mangle -p tcp --sport ssh -j TOS --set-tos Minimize-De
 iptables -A PREROUTING -t mangle -p tcp --sport ftp -j TOS --set-tos Minimize-Delay
 iptables -A PREROUTING -t mangle -p tcp --sport ftp-data -j TOS --set-tos Maximize-Throughput
 
-#Allow only internal traffic to go to the firewall host.
+#Allow  internal traffic to go to the firewall host.
 $IPT -A INPUT -i $LAN_INTERFACE -s $LAN_ADDRESS_SPACE -d $LAN_IP -j ACCEPT
 $IPT -A OUTPUT -o $LAN_INTERFACE -d $LAN_ADDRESS_SPACE -s $LAN_IP -j ACCEPT
+
+
+#iptables -A FORWARD -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -m state --state ESTABLISHED,RELATED -j ACCEPT
+#iptables -A FORWARD -i $LAN_INTERFACE -o $EXTERNAL_INTERFACE -j ACCEPT
+#iptables -t nat -A POSTROUTING -o $EXTERNAL_INTERFACE -j MASQUERADE
