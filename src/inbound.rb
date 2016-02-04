@@ -50,21 +50,17 @@ warn "  \nTesting for SYN and FIN-----------------------------------------------
 
 
 
+warn "  \n Testing Allowed TCP Ports--------------------------------------------------------------------------------------\n"
 
+for port in ALLOWED_TCP_PORTS;
+  warn"\n   Testing allowed port #{port}\n"
+  system("hping #{TARGET_IP}  -S -s #{port} -p #{port} -c #{PING_COUNT} -i #{INTERVAL}")
+end
 
+warn "  \nTesting Allowed UDP Ports--------------------------------------------------------------------------------------\n"
 
+for port in ALLOWED_UDP_PORTS;
+  warn"\n   Testing allowed port #{port}\n"
+  system("hping #{TARGET_IP} --udp -s #{port} -p #{port} -c #{PING_COUNT} -i #{INTERVAL}")
+end
 
-# warn "  \n Testing Allowed TCP Ports--------------------------------------------------------------------------------------\n"
-#
-# for port in ALLOWED_TCP_PORTS;
-#   warn"\n   Testing allowed port #{port}\n"
-#   system("hping #{TARGET_IP}  -S -s 80 -p #{port} -c #{PING_COUNT} -i #{INTERVAL}")
-# end
-#
-# warn "  \nTesting Allowed UDP Ports--------------------------------------------------------------------------------------\n"
-#
-# for port in ALLOWED_UDP_PORTS;
-#   warn"\n   Testing allowed port #{port}\n"
-#   system("hping #{TARGET_IP} --udp -s 80 -p #{port} -c #{PING_COUNT} -i #{INTERVAL}")
-# end
-#
