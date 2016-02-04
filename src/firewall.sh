@@ -17,9 +17,13 @@ GATEWAY="192.168.5.1"
 
 #Stuff for forwarding firewall
 LAN_INTERFACE="enp0s8"
-LAN_ADDRESSES="192.168.5.0/24"
+LAN_ADDRESS="192.168.5.0/24"
+LAN_TARGETIP="192.168.5.2"
 EXTERNAL_INTERFACE="enp0s3"
 
+
+
+#Ensure kernel allows forwarding
 sysctl -w net.ipv4.ip_forward=1
 
 #Remove  any  existing  rules  from  all  chains
@@ -49,13 +53,66 @@ if [ "$1" = "stop" ]
     exit 0
 fi
 
+#Set default to drop
+iptables -P INPUT DROP
+iptables -P OUTPUT DROP
+iptables -P FORWARD DROP
 
-#$IPT -A FORWARD -i $LAN_INTERFACE -o $EXTERNAL_INTERFACE -p tcp -s $LAN_ADDRESSES --sport $UNPRIVPORTS -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
-#$IPT -A FORWARD -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -m state --state ESTABLISHED,RELATED -j ACCEPT
-#
-#$IPT -A INPUT -i $LAN_INTERFACE -p tcp -s $LAN_ADDRESSES --sport $UNPRIVPORTS -d $GATEWAY -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
-#$IPT -A OUTPUT -o $LAN_INTERFACE -m state --state ESTABLISHED,RELATED -j ACCEPT
+#User Defined Chains
+iptables -N ICMPin
+iptables -N ICMPout
+iptables -N TCPin
+iptables -N TCPout
+iptables -N UDPin
+iptables -N UDPout
 
-iptables -A FORWARD -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -m state --state ESTABLISHED,RELATED -j ACCEPT
-iptables -A FORWARD -i $LAN_INTERFACE -o $EXTERNAL_INTERFACE -j ACCEPT
+#Setup NAT/Masquerade/SNAT for outgoing packets
 iptables -t nat -A POSTROUTING -o $EXTERNAL_INTERFACE -j MASQUERADE
+
+#Setup DNAT for portfowarding so services can be reached behind firewall.
+iptables -t nat -A PREROUTING -i $EXTERNAL_INTERFACE -j DNAT --to-destination $LAN_TARGETIP
+
+#Accept fragments.
+
+
+#Forward packets to user defined chains
+iptables -A FORWARD -p icmp -j ICMPin
+iptables -A FORWARD -p icmp -j ICMPout
+iptables -A FORWARD -p tcp -j TCPin
+iptables -A FORWARD -p tcp -j TCPout
+iptables -A FORWARD -p udp -j UDPin
+iptables -A FORWARD -p udp -j UDPout
+
+#Accept fragments
+iptables -A FORWARD -f -j ACCEPT
+
+
+
+#Explicit Drops
+#Do  not  accept  any  packets  with  a  source  address  from  the  outside  matching  your internal network.
+iptables -A TCPin -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -s $LAN_ADDRESS -j DROP
+iptables -A UDPin -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -s $LAN_ADDRESS -j DROP
+iptables -A ICMPin -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -s $LAN_ADDRESS -j DROP
+#You must ensure the you reject those connections that are coming the “wrong” way (i.e., inbound SYN packets to high ports).
+iptables -A TCPin -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -p tcp --syn  --dport $UNPRIVPORTS -j DROP
+#Drop all TCP packets with the SYN and FIN bit set.
+iptables -A TCPin -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -p tcp --tcp-flags SYN,FIN SYN,FIN -j DROP
+#Do not allow Telnet packets at all.
+iptables -A TCPin -p tcp --dport 23 -j DROP
+iptables -A TCPin -p tcp --sport 23 -j DROP
+iptables -A TCPout -p tcp --dport 23 -j DROP
+iptables -A TCPout -p tcp --dport 23 -j DROP
+
+
+
+#iptables -A FORWARD -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -m state --state ESTABLISHED,RELATED -j ACCEPT
+#iptables -A FORWARD -i $LAN_INTERFACE -o $EXTERNAL_INTERFACE -j ACCEPT
+#iptables -t nat -A POSTROUTING -o $EXTERNAL_INTERFACE -j MASQUERADE
+
+
+#For FTP and SSH services, set control connections to "Minimum Delay" and FTP data to "Maximum Throughput".
+iptables -A PREROUTING -t mangle -p tcp --sport ssh -j TOS --set-tos Minimize-Delay
+iptables -A PREROUTING -t mangle -p tcp --sport ftp -j TOS --set-tos Minimize-Delay
+iptables -A PREROUTING -t mangle -p tcp --sport ftp-data -j TOS --set-tos Maximize-Throughput
+
+#Drop all packets destined for the firewall host from the outside.
