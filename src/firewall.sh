@@ -98,7 +98,7 @@ iptables -A FORWARD -p udp -j UDPin
 iptables -A FORWARD -p udp -j UDPout
 
 #Accept fragments
-iptables -A FORWARD -f -j ACCEPT
+iptables -A FORWARD -f -j ACCEPT #
 
 
 
