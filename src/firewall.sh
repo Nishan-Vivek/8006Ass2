@@ -20,6 +20,8 @@ LAN_INTERFACE="enp0s8"
 LAN_ADDRESS="192.168.5.0/24"
 LAN_TARGETIP="192.168.5.2"
 EXTERNAL_INTERFACE="enp0s3"
+BLOCKED_TCP_INBOUND="32768:32775,137:139,111,115"
+BLOCKED_UDP_INBOUND="32768:32775,137:139"
 
 
 
@@ -102,8 +104,9 @@ iptables -A TCPin -p tcp --dport 23 -j DROP
 iptables -A TCPin -p tcp --sport 23 -j DROP
 iptables -A TCPout -p tcp --dport 23 -j DROP
 iptables -A TCPout -p tcp --dport 23 -j DROP
-
-
+#Block all external traffic directed to ports 32768 32775, 137 139, TCP ports 111 and 515.
+iptables -A TCPin -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -p tcp -m multiport --dport $BLOCKED_TCP_INBOUND -j DROP
+iptables -A UDPin -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -p tcp -m multiport --dport $BLOCKED_UDP_INBOUND -j DROP
 
 #iptables -A FORWARD -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -m state --state ESTABLISHED,RELATED -j ACCEPT
 #iptables -A FORWARD -i $LAN_INTERFACE -o $EXTERNAL_INTERFACE -j ACCEPT
@@ -115,4 +118,3 @@ iptables -A PREROUTING -t mangle -p tcp --sport ssh -j TOS --set-tos Minimize-De
 iptables -A PREROUTING -t mangle -p tcp --sport ftp -j TOS --set-tos Minimize-Delay
 iptables -A PREROUTING -t mangle -p tcp --sport ftp-data -j TOS --set-tos Maximize-Throughput
 
-#Drop all packets destined for the firewall host from the outside.
