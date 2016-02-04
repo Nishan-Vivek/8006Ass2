@@ -1,8 +1,28 @@
 #!/usr/bin/env bash
 
+#User Configuration Section
+IPT="/sbin/iptables" #Location of the iptables utility.
+LAN_INTERFACE="enp0s8"
+EXTERNAL_INTERFACE="enp0s3"
+LAN_ADDRESS_SPACE="192.168.5.0/24" #The internal lans subnet
+LAN_TARGETIP="192.168.5.2"   #Target internal ip for forwarded services.
+LAN_IP="192.168.5.1"
+EXTERNAL_ADDRESS_SPACE=""
+EXTERNAL_IP=""
+
+BLOCKED_TCP_INBOUND="32768:32775,137:139,111,115" #Explicitly blocked inbound TCP ports
+BLOCKED_UDP_INBOUND="32768:32775,137:139"         #Explicitly blocked inbound UDP ports
+
+ALLOWED_TCP_PORTS=""
+ALLOWED_UDP_PORTS=""
+ALLOWED_ICMP_TYPES=""
+
+
+
+
 #Symbolic Constants as specified in Linux Firewalls 3rd Edition.
 
-IPT="/sbin/iptables"
+
 #EXTERNAL_INTERFACE="enp0s3"
 #LOOPBACK_INTERFACE="lo"
 #LOOPBACK_IP="127.0.0.1"
@@ -10,19 +30,11 @@ IPT="/sbin/iptables"
 UNPRIVPORTS="1024:65535"
 #BROADCAST_SRC="0.0.0.0"
 #BROADCAST_DEST="255.255.255.255"
-GATEWAY="192.168.5.1"
 #NAMESERVER="192.168.1.1"
 #DHCP_SERVER="192.168.1.1"
 #SSH_PORTS="1024:65535"
 
 #Stuff for forwarding firewall
-LAN_INTERFACE="enp0s8"
-LAN_ADDRESS="192.168.5.0/24"
-LAN_TARGETIP="192.168.5.2"
-EXTERNAL_INTERFACE="enp0s3"
-BLOCKED_TCP_INBOUND="32768:32775,137:139,111,115"
-BLOCKED_UDP_INBOUND="32768:32775,137:139"
-
 
 
 #Ensure kernel allows forwarding
@@ -92,9 +104,9 @@ iptables -A FORWARD -f -j ACCEPT
 
 #Explicit Drops
 #Do  not  accept  any  packets  with  a  source  address  from  the  outside  matching  your internal network.
-iptables -A TCPin -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -s $LAN_ADDRESS -j DROP
-iptables -A UDPin -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -s $LAN_ADDRESS -j DROP
-iptables -A ICMPin -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -s $LAN_ADDRESS -j DROP
+iptables -A TCPin -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -s $LAN_ADDRESS_SPACE -j DROP
+iptables -A UDPin -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -s $LAN_ADDRESS_SPACE -j DROP
+iptables -A ICMPin -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -s $LAN_ADDRESS_SPACE -j DROP
 #You must ensure the you reject those connections that are coming the “wrong” way (i.e., inbound SYN packets to high ports).
 iptables -A TCPin -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -p tcp --syn  --dport $UNPRIVPORTS -j DROP
 #Drop all TCP packets with the SYN and FIN bit set.
@@ -108,6 +120,10 @@ iptables -A TCPout -p tcp --dport 23 -j DROP
 iptables -A TCPin -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -p tcp -m multiport --dport $BLOCKED_TCP_INBOUND -j DROP
 iptables -A UDPin -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -p tcp -m multiport --dport $BLOCKED_UDP_INBOUND -j DROP
 
+
+#Allowed Traffic
+
+
 #iptables -A FORWARD -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -m state --state ESTABLISHED,RELATED -j ACCEPT
 #iptables -A FORWARD -i $LAN_INTERFACE -o $EXTERNAL_INTERFACE -j ACCEPT
 #iptables -t nat -A POSTROUTING -o $EXTERNAL_INTERFACE -j MASQUERADE
@@ -118,3 +134,6 @@ iptables -A PREROUTING -t mangle -p tcp --sport ssh -j TOS --set-tos Minimize-De
 iptables -A PREROUTING -t mangle -p tcp --sport ftp -j TOS --set-tos Minimize-Delay
 iptables -A PREROUTING -t mangle -p tcp --sport ftp-data -j TOS --set-tos Maximize-Throughput
 
+#Allow only internal traffic to go to the firewall host.
+$IPT -A INPUT -i $LAN_INTERFACE -s $LAN_ADDRESS_SPACE -d $LAN_IP -j ACCEPT
+$IPT -A OUTPUT -o $LAN_INTERFACE -d $LAN_ADDRESS_SPACE -s $LAN_IP -j ACCEPT
