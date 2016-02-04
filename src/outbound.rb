@@ -3,7 +3,7 @@ EXTERNAL_IP="192.168.1.34"
 BLOCKED_TCP_PORTS=[23,88,45]
 BLOCKED_UDP_PORTS=[23, 44, 609]
 ALLOWED_TCP_PORTS=[22,53,67,68,80,443]
-ALLOWED_UDP_PORTS=[]
+ALLOWED_UDP_PORTS=[53,67,80,443,9900,5656]
 PING_COUNT = 3
 INTERVAL = "u500"
 
@@ -34,7 +34,15 @@ end
 
 warn "  \n Testing Allowed TCP Ports--------------------------------------------------------------------------------------\n"
 
-for port in BLOCKED_UDP_PORTS;
-  warn"\n   Testing blocked port #{port}\n"
+for port in ALLOWED_TCP_PORTS;
+  warn"\n   Testing allowed port #{port}\n"
+  system("hping #{EXTERNAL_IP}  -S -s 3045 -p #{port} -c #{PING_COUNT} -i #{INTERVAL}")
+end
+
+warn "  \nTesting Allowed UDP Ports--------------------------------------------------------------------------------------\n"
+
+for port in ALLOWED_UDP_PORTS;
+  warn"\n   Testing allowed port #{port}\n"
   system("hping #{EXTERNAL_IP} --udp -s 3045 -p #{port} -c #{PING_COUNT} -i #{INTERVAL}")
 end
+

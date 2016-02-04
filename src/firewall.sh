@@ -14,7 +14,7 @@ BLOCKED_TCP_INBOUND="32768:32775,137:139,111,115" #Explicitly blocked inbound TC
 BLOCKED_UDP_INBOUND="32768:32775,137:139"         #Explicitly blocked inbound UDP ports
 
 ALLOWED_TCP_PORTS="22,53,67,68,80,443"
-ALLOWED_UDP_PORTS="53,67,80,443"
+ALLOWED_UDP_PORTS="53,67,80,443,9900,5656"
 ALLOWED_ICMP_TYPES="0,3,8"
 
 
@@ -138,7 +138,7 @@ iptables -A UDPout -i $LAN_INTERFACE -o $EXTERNAL_INTERFACE -p udp -m multiport 
 #Allow ICMP packets of allowed types.
 #iptables -A ICMPin -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -p icmp --icmp-type $ALLOWED_ICMP_TYPES  -j ACCEPT
 #iptables -A ICMPout -i $LAN_INTERFACE -o $EXTERNAL_INTERFACE -p icmp --icmp-type $ALLOWED_ICMP_TYPES -j ACCEPT
-iptables -A ICMPin -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -p icmp   -j ACCEPT
+iptables -A ICMPin -i $EXTERNAL_INTERFACE -o $LAN_INTERFACE -p icmp -j ACCEPT
 iptables -A ICMPout -i $LAN_INTERFACE -o $EXTERNAL_INTERFACE -p icmp -j ACCEPT
 
 
