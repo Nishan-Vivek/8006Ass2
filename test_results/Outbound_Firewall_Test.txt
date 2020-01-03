@@ -1,0 +1,148 @@
+Starting Outbound Firewall Test----------------------------------------------------------------------------- 
+
+  Testing Blocked TCP Ports--------------------------------------------------------------------------------------
+
+
+   Testing blocked port 23
+
+
+--- 192.168.0.7 hping statistic ---
+3 packets transmitted, 0 packets received, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+
+   Testing blocked port 88
+
+HPING 192.168.0.7 (enp3s2 192.168.0.7): S set, 40 headers + 0 data bytes
+eived, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+
+   Testing blocked port 45
+
+HPING 192.168.0.7 (enp3s2 192.168.0.7): S set, 40 headers + 0 data bytes
+eived, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+  
+Testing Blocked UDP Ports--------------------------------------------------------------------------------------
+
+
+   Testing blocked port 23
+
+HPING 192.168.0.7 (enp3s2 192.168.0.7): udp mode set, 28 headers + 0 data bytes
+100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+
+   Testing blocked port 44
+
+HPING 192.168.0.7 (enp3s2 192.168.0.7): udp mode set, 28 headers + 0 data bytes
+100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+
+   Testing blocked port 609
+
+
+--- 192.168.0.7 hping statistic ---
+3 packets transmitted, 0 packets received, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+  
+ Testing Allowed TCP Ports--------------------------------------------------------------------------------------
+
+
+   Testing allowed port 22
+
+HPING 192.168.0.7 (enp3s2 192.168.0.7): S set, 40 headers + 0 data bytes
+len=46 ip=192.168.0.7 ttl=63 DF id=0 sport=22 flags=SA seq=0 win=29200 rtt=0.8 ms
+len=46 ip=192.168.0.7 ttl=63 DF id=0 sport=22 flags=SA seq=1 win=29200 rtt=0.5 ms
+len=46 ip=192.168.0.7 ttl=63 DF id=0 sport=22 flags=SA seq=2 win=29200 rtt=0.8 ms
+
+   Testing allowed port 53
+
+
+--- 192.168.0.7 hping statistic ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.6/0.7/0.7 ms
+=0 win=0 rtt=0.7 ms
+len=46 ip=192.168.0.7 ttl=63 DF id=18718 sport=53 flags=RA seq=1 win=0 rtt=0.7 ms
+len=46 ip=192.168.0.7 ttl=63 DF id=18719 sport=53 flags=RA seq=2 win=0 rtt=0.6 ms
+
+   Testing allowed port 67
+
+HPING 192.168.0.7 (enp3s2 192.168.0.7): S set, 40 headers + 0 data bytes
+len=46 ip=192.168.0.7 ttl=63 DF id=18748 sport=67 flags=RA seq=0 win=0 rtt=0.7 ms
+len=46 ip=192.168.0.7 ttl=63 DF id=18749 sport=67 flags=RA seq=1 win=0 rtt=0.6 ms
+len=46 ip=192.168.0.7 ttl=63 DF id=18750 sport=67 flags=RA seq=2 win=0 rtt=0.6 ms
+
+   Testing allowed port 68
+
+
+--- 192.168.0.7 hping statistic ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.7/0.8/0.9 ms
+=0 win=0 rtt=0.8 ms
+len=46 ip=192.168.0.7 ttl=63 DF id=18774 sport=68 flags=RA seq=1 win=0 rtt=0.7 ms
+len=46 ip=192.168.0.7 ttl=63 DF id=18775 sport=68 flags=RA seq=2 win=0 rtt=0.9 ms
+
+   Testing allowed port 80
+
+HPING 192.168.0.7 (enp3s2 192.168.0.7): S set, 40 headers + 0 data bytes
+len=46 ip=192.168.0.7 ttl=63 DF id=18794 sport=80 flags=RA seq=0 win=0 rtt=0.8 ms
+len=46 ip=192.168.0.7 ttl=63 DF id=18795 sport=80 flags=RA seq=1 win=0 rtt=0.7 ms
+len=46 ip=192.168.0.7 ttl=63 DF id=18796 sport=80 flags=RA seq=2 win=0 rtt=0.7 ms
+
+   Testing allowed port 443
+
+
+--- 192.168.0.7 hping statistic ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.8/0.8/0.9 ms
+q=0 win=0 rtt=0.9 ms
+len=46 ip=192.168.0.7 ttl=63 DF id=18811 sport=443 flags=RA seq=1 win=0 rtt=0.9 ms
+len=46 ip=192.168.0.7 ttl=63 DF id=18812 sport=443 flags=RA seq=2 win=0 rtt=0.8 ms
+  
+Testing Allowed UDP Ports--------------------------------------------------------------------------------------
+
+
+   Testing allowed port 53
+
+HPING 192.168.0.7 (enp3s2 192.168.0.7): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.0.7 get hostname...               name=UNKNOWN
+ICMP Port Unreachable from ip=192.168.0.7 get hostname...               name=UNKNOWN
+ICMP Port Unreachable from ip=192.168.0.7 get hostname...               name=UNKNOWN
+, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+
+   Testing allowed port 67
+
+HPING 192.168.0.7 (enp3s2 192.168.0.7): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.0.7 get hostname...               name=UNKNOWN
+ICMP Port Unreachable from ip=192.168.0.7 get hostname...               name=UNKNOWN
+ICMP Port Unreachable from ip=192.168.0.7 get hostname...               name=UNKNOWN
+, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+
+   Testing allowed port 80
+
+
+--- 192.168.0.7 hping statistic ---
+3 packets transmitted, 0 packets received, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+
+   Testing allowed port 443
+
+HPING 192.168.0.7 (enp3s2 192.168.0.7): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.0.7 get hostname...               name=UNKNOWN
+, 1 packets received, 67% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+
+   Testing allowed port 9900
+
+HPING 192.168.0.7 (enp3s2 192.168.0.7): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.0.7 get hostname...               name=UNKNOWN
+, 1 packets received, 67% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+
+   Testing allowed port 5656
+
+HPING 192.168.0.7 (enp3s2 192.168.0.7): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.0.7 get hostname...               name=UNKNOWN
+, 1 packets received, 67% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms

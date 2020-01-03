@@ -1,0 +1,314 @@
+Starting Inbound Firewall Test----------------------------------------------------------------------------- 
+
+  Testing Blocked TCP Ports--------------------------------------------------------------------------------------
+
+
+   Testing blocked port 111
+
+HPING 192.168.0.9 (eno1 192.168.0.9): S set, 40 headers + 0 data bytes
+eceived, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+
+   Testing blocked port 115
+
+HPING 192.168.0.9 (eno1 192.168.0.9): S set, 40 headers + 0 data bytes
+eceived, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+
+   Testing blocked port 137
+
+HPING 192.168.0.9 (eno1 192.168.0.9): S set, 40 headers + 0 data bytes
+eceived, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+
+   Testing blocked port 138
+
+
+--- 192.168.0.9 hping statistic ---
+3 packets transmitted, 0 packets received, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+
+   Testing blocked port 139
+
+HPING 192.168.0.9 (eno1 192.168.0.9): S set, 40 headers + 0 data bytes
+eceived, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+
+   Testing blocked port 32768
+
+HPING 192.168.0.9 (eno1 192.168.0.9): S set, 40 headers + 0 data bytes
+eceived, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+
+   Testing blocked port 32769
+
+HPING 192.168.0.9 (eno1 192.168.0.9): S set, 40 headers + 0 data bytes
+eceived, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+
+   Testing blocked port 32770
+
+HPING 192.168.0.9 (eno1 192.168.0.9): S set, 40 headers + 0 data bytes
+eceived, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+
+   Testing blocked port 32771
+
+HPING 192.168.0.9 (eno1 192.168.0.9): S set, 40 headers + 0 data bytes
+eceived, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+
+   Testing blocked port 32772
+
+HPING 192.168.0.9 (eno1 192.168.0.9): S set, 40 headers + 0 data bytes
+eceived, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+
+   Testing blocked port 32773
+
+HPING 192.168.0.9 (eno1 192.168.0.9): S set, 40 headers + 0 data bytes
+eceived, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+
+   Testing blocked port 32774
+
+HPING 192.168.0.9 (eno1 192.168.0.9): S set, 40 headers + 0 data bytes
+eceived, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+
+   Testing blocked port 32775
+
+HPING 192.168.0.9 (eno1 192.168.0.9): S set, 40 headers + 0 data bytes
+eceived, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+
+   Testing blocked port 23
+
+
+--- 192.168.0.9 hping statistic ---
+3 packets transmitted, 0 packets received, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+  
+Testing Blocked UDP Ports--------------------------------------------------------------------------------------
+
+
+   Testing blocked port 137
+
+HPING 192.168.0.9 (eno1 192.168.0.9): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.0.9 get hostname...
+--- 192.168.0.9 hping statistic ---
+3 packets transmitted, 1 packets received, 67% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+               name=UNKNOWN
+
+   Testing blocked port 138
+
+HPING 192.168.0.9 (eno1 192.168.0.9): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.0.9 get hostname...
+--- 192.168.0.9 hping statistic ---
+3 packets transmitted, 1 packets received, 67% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+               name=UNKNOWN
+
+   Testing blocked port 139
+
+HPING 192.168.0.9 (eno1 192.168.0.9): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.0.9 get hostname...
+--- 192.168.0.9 hping statistic ---
+3 packets transmitted, 1 packets received, 67% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+               name=UNKNOWN
+
+   Testing blocked port 32768
+
+HPING 192.168.0.9 (eno1 192.168.0.9): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.0.9 get hostname...
+--- 192.168.0.9 hping statistic ---
+3 packets transmitted, 1 packets received, 67% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+               name=UNKNOWN
+
+   Testing blocked port 32769
+
+HPING 192.168.0.9 (eno1 192.168.0.9): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.0.9 get hostname...               name=UNKNOWN
+, 1 packets received, 67% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+
+   Testing blocked port 32770
+
+HPING 192.168.0.9 (eno1 192.168.0.9): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.0.9 get hostname...
+--- 192.168.0.9 hping statistic ---
+3 packets transmitted, 1 packets received, 67% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+               name=UNKNOWN
+
+   Testing blocked port 32771
+
+HPING 192.168.0.9 (eno1 192.168.0.9): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.0.9 get hostname...
+--- 192.168.0.9 hping statistic ---
+3 packets transmitted, 1 packets received, 67% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+               name=UNKNOWN
+
+   Testing blocked port 32772
+
+HPING 192.168.0.9 (eno1 192.168.0.9): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.0.9 get hostname...
+--- 192.168.0.9 hping statistic ---
+3 packets transmitted, 1 packets received, 67% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+               name=UNKNOWN
+
+   Testing blocked port 32773
+
+HPING 192.168.0.9 (eno1 192.168.0.9): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.0.9 get hostname...
+--- 192.168.0.9 hping statistic ---
+3 packets transmitted, 1 packets received, 67% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+               name=UNKNOWN
+
+   Testing blocked port 32774
+
+HPING 192.168.0.9 (eno1 192.168.0.9): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.0.9 get hostname...               name=UNKNOWN
+, 1 packets received, 67% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+
+   Testing blocked port 32775
+
+HPING 192.168.0.9 (eno1 192.168.0.9): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.0.9 get hostname...               name=UNKNOWN
+, 1 packets received, 67% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+  
+Testing for lan source spoofing--------------------------------------------------------------------------------------
+
+
+--- 192.168.0.9 hping statistic ---
+3 packets transmitted, 0 packets received, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+  
+Testing for SYN Packets with High Ports-------------------------------------------------------------------
+
+HPING 192.168.0.9 (eno1 192.168.0.9): S set, 40 headers + 0 data bytes
+eceived, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+  
+Testing for SYN and FIN-------------------------------------------------------------------
+
+
+--- 192.168.0.9 hping statistic ---
+3 packets transmitted, 0 packets received, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+  
+ Testing Allowed TCP Ports--------------------------------------------------------------------------------------
+
+
+   Testing allowed port 22
+
+HPING 192.168.0.9 (eno1 192.168.0.9): S set, 40 headers + 0 data bytes
+len=46 ip=192.168.0.9 ttl=63 DF id=3035 sport=22 flags=RA seq=0 win=0 rtt=0.9 ms
+len=46 ip=192.168.0.9 ttl=63 DF id=3036 sport=22 flags=RA seq=2 win=0 rtt=0.6 ms
+
+   Testing allowed port 53
+
+HPING 192.168.0.9 (eno1 192.168.0.9): S set, 40 headers + 0 data bytes
+len=46 ip=192.168.0.9 ttl=63 DF id=3809 sport=53 flags=RA seq=0 win=0 rtt=0.7 ms
+len=46 ip=192.168.0.9 ttl=63 DF id=3810 sport=53 flags=RA seq=1 win=0 rtt=0.6 ms
+len=46 ip=192.168.0.9 ttl=63 DF id=3811 sport=53 flags=RA seq=2 win=0 rtt=0.6 ms
+
+   Testing allowed port 67
+
+
+--- 192.168.0.9 hping statistic ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.6/0.6/0.6 ms
+win=0 rtt=0.6 ms
+len=46 ip=192.168.0.9 ttl=63 DF id=3835 sport=67 flags=RA seq=1 win=0 rtt=0.6 ms
+len=46 ip=192.168.0.9 ttl=63 DF id=3836 sport=67 flags=RA seq=2 win=0 rtt=0.6 ms
+
+   Testing allowed port 68
+
+HPING 192.168.0.9 (eno1 192.168.0.9): S set, 40 headers + 0 data bytes
+len=46 ip=192.168.0.9 ttl=63 DF id=3844 sport=68 flags=RA seq=0 win=0 rtt=0.6 ms
+len=46 ip=192.168.0.9 ttl=63 DF id=3845 sport=68 flags=RA seq=1 win=0 rtt=0.6 ms
+len=46 ip=192.168.0.9 ttl=63 DF id=3846 sport=68 flags=RA seq=2 win=0 rtt=0.6 ms
+
+   Testing allowed port 80
+
+HPING 192.168.0.9 (eno1 192.168.0.9): S set, 40 headers + 0 data bytes
+len=46 ip=192.168.0.9 ttl=63 DF id=3856 sport=80 flags=RA seq=0 win=0 rtt=0.6 ms
+len=46 ip=192.168.0.9 ttl=63 DF id=3857 sport=80 flags=RA seq=1 win=0 rtt=0.6 ms
+len=46 ip=192.168.0.9 ttl=63 DF id=3858 sport=80 flags=RA seq=2 win=0 rtt=0.6 ms
+
+   Testing allowed port 443
+
+
+--- 192.168.0.9 hping statistic ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.6/0.7/0.8 ms
+ win=0 rtt=0.8 ms
+len=46 ip=192.168.0.9 ttl=63 DF id=3891 sport=443 flags=RA seq=1 win=0 rtt=0.6 ms
+len=46 ip=192.168.0.9 ttl=63 DF id=3892 sport=443 flags=RA seq=2 win=0 rtt=0.6 ms
+  
+Testing Allowed UDP Ports--------------------------------------------------------------------------------------
+
+
+   Testing allowed port 53
+
+HPING 192.168.0.9 (eno1 192.168.0.9): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.0.9 get hostname...               name=UNKNOWN
+ICMP Port Unreachable from ip=192.168.0.9 get hostname...               name=UNKNOWN
+ICMP Port Unreachable from ip=192.168.0.9 get hostname...
+--- 192.168.0.9 hping statistic ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+               name=UNKNOWN
+
+   Testing allowed port 67
+
+HPING 192.168.0.9 (eno1 192.168.0.9): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.0.9 get hostname...               name=UNKNOWN
+ICMP Port Unreachable from ip=192.168.0.9 get hostname...               name=UNKNOWN
+ICMP Port Unreachable from ip=192.168.0.9 get hostname...
+--- 192.168.0.9 hping statistic ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+               name=UNKNOWN
+
+   Testing allowed port 80
+
+HPING 192.168.0.9 (eno1 192.168.0.9): udp mode set, 28 headers + 0 data bytes
+, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+
+   Testing allowed port 443
+
+HPING 192.168.0.9 (eno1 192.168.0.9): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.0.9 get hostname...
+--- 192.168.0.9 hping statistic ---
+3 packets transmitted, 1 packets received, 67% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+               name=UNKNOWN
+
+   Testing allowed port 9900
+
+HPING 192.168.0.9 (eno1 192.168.0.9): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.0.9 get hostname...
+--- 192.168.0.9 hping statistic ---
+3 packets transmitted, 1 packets received, 67% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+               name=UNKNOWN
+
+   Testing allowed port 5656
+
+HPING 192.168.0.9 (eno1 192.168.0.9): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.0.9 get hostname...
+--- 192.168.0.9 hping statistic ---
+3 packets transmitted, 1 packets received, 67% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+               name=UNKNOWN
